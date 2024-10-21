@@ -1,5 +1,7 @@
 // Types fundamentals
 
+// Note: most of the time you wont have to explictly declare variables, you will typically only have to do this in functions and structs
+
 // Swift uses type inference so you dont have to be explicit with types
 let fullName = "Naruto Uzumaki"
 print(fullName)

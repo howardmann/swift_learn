@@ -13,13 +13,13 @@ struct UserWithExtra {
   let firstName: String
   let lastName: String? // last name optional
   let age: Int
-  let legal: Bool // new properties
+  let legal: Bool // new properties we will add to original sample
   let fullName: String // new properties
 }
 
-// Transform array 
+// Transform array with type casting using `as? Type` and fallbacks with `??`
 let updatedUsersExtra = sampleUsers.map {user in
-  let firstName = user["firstName"] as? String ?? "Guest"
+  let firstName = user["firstName"] as? String ?? "Guest" // fallback guest
   let lastName = user["lastName"] as? String ?? "Guest" // fallback guest
   let age = user["age"] as? Int ?? 0
   let legal = age >= 18
