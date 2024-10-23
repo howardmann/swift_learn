@@ -59,3 +59,9 @@ let updatedHealthSites = sites.map{ site in
 }
 
 print(updatedHealthSites)
+
+// Filter sites that are healthy
+let healthySites = updatedHealthSites.filter{ site in 
+  return site["status"] as? String == "Healthy"
+}
+print(healthySites)
