@@ -40,3 +40,17 @@ var ticketB = TicketPriorityDesc.P1
 print("Enum: \(ticketB). Description: \(ticketB.description)")
 ticketB = .P4
 print("Enum: \(ticketB). Description: \(ticketB.description)")
+
+// Enum allowing users to create own associated values
+enum TicketPriorityBuilder {
+  case P1(sort: Int, name: String, description: String)
+  case P2(sort: Int, name: String, description: String)
+  case P3(sort: Int, name: String, description: String)
+  case P4(sort: Int, name: String, description: String)
+  case P5(sort: Int, name: String, description: String)
+}
+
+var highPriority = TicketPriorityBuilder.P1(sort: 1, name: "High", description: "Critical, Fix it")
+var medPriority = TicketPriorityBuilder.P2(sort: 2, name: "Medium", description: "Prioritise it")
+print(highPriority)
+print(medPriority)
