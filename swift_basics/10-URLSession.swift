@@ -82,3 +82,59 @@ do {
   print("Error: \(error)")
 }
 
+// Fetch movie details
+struct Rating: Codable {
+  let source: String
+  let value: String  
+
+  enum CodingKeys: String, CodingKey {
+    case source = "Source"
+    case value = "Value"
+  }
+}
+
+struct IMDB: Codable {
+  let title: String
+  let year: String
+  let director: String
+  let ratings: [Rating]
+
+  enum CodingKeys: String, CodingKey {
+    case title = "Title"
+    case year = "Year"
+    case director = "Director"
+    case ratings = "Ratings"
+  }
+}
+
+let fetchIMDB: (String) async throws -> IMDB = { query in
+  let apiKey = "abc7322f"  
+  let urlString = "https://www.omdbapi.com/?i=\(query)&apikey=\(apiKey)"
+  guard let url = URL(string: urlString) else {
+    throw URLError(.badURL)
+  }
+  let (data, _) = try await URLSession.shared.data(from: url)
+  let decodedData = try JSONDecoder().decode(IMDB.self, from: data)
+  return decodedData
+}
+
+do {
+  let movies = try await fetchMovies("die hard")
+  if movies.isEmpty {print("No results")}
+  let imdbID = movies[0].imdbID
+  let movieImdb = try await fetchIMDB(imdbID)
+  print("IMDB: \(movieImdb.title), Year: \(movieImdb.year), Director: \(movieImdb.director)")
+  let ratings = movieImdb.ratings
+  for rating in ratings {
+    print("Rating: \(rating.source) \(rating.value)")
+  }
+
+  
+
+
+} catch {
+  print("Error: \(error)")
+}
+
+
+
